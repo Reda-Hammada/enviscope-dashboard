@@ -5,11 +5,11 @@
 define('DB_HOST',
 'localhost');
 define('DB_USER',
-'__YOUR_USER__');
+'root');
 define('DB_PASS', 
-'__YOUR_PASS__');
+'');
 define('DB_NAME', 
-'DATABASE_NAME');
+'enviscope');
 
 // App Root 
 
@@ -19,9 +19,9 @@ define('APPROOT'
 //URL Root 
 
 define('URLROOT', 
-'__YOUR_URL__');
+'http://localhost/enviscope-dashboard/');
 
 //Site Name
 
 define('SITENAME', 
-'__YOUR_SITENAME__');
+'EnviScope');

@@ -3,18 +3,21 @@
 
     class Pages extends Controller {
 
-        public function __construct(){
-
-        }
      
 
-        public function index($id){
-  
-          echo  $id;
+        public function index(){
+
+            $this->view('pages/index');
 
         }  
 
-     
 
+        public function setting () {
+
+
+
+            $this->view('pages/setting');
+
+        }
 
     }
