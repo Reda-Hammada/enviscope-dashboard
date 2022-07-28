@@ -1,0 +1,79 @@
+
+
+
+* {
+
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+
+body {
+
+    background-color: whitesmoke;
+}
+
+
+
+
+
+/* Login page */
+
+
+.form_container {
+
+    width: 60%;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 10%;
+     background-color: #fff;
+     text-align: center;
+    border-radius: 8px;
+    
+}
+
+.logo_container {
+
+    width: 40%;
+    margin-left:auto;
+    margin-right: auto;
+    margin-bottom: 3%;
+}
+
+.logo_container img {
+
+    width: 100%;
+    padding-top: 9%;
+}
+
+.username input[type='text'],
+.password input[type='password'] {
+
+    width: 60%;
+    padding-left: 3%;
+    margin-top: 2%;
+    height: 45px;
+    border-radius: 7px;
+    border:2px solid #002060;
+    
+}
+
+.login input[type='submit'] {
+
+    background-color: #002060;
+    color:#fff;
+    border:hidden;
+    width: 120px;
+    height: 44px;
+    margin-top: 2%;
+    margin-bottom: 9%;
+    border-radius: 7px;
+
+    font-weight: bold;
+}
+
+
+/* login page ends */
