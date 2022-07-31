@@ -22,7 +22,9 @@ require_once '../app/views/inc/header.php';
 
         <label  class='label' for='name'>mot de pass :</label>
         <div class="password">
-             <inputtype="password" name="password" value=<?php echo $data['username_err'] ?>>
+             <input type="password" name="password"><br>
+             <span ><?php echo $data['password_err'] ?></span>
+
 
         </div>
         <div class='login'>

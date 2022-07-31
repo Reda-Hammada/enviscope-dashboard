@@ -5,6 +5,8 @@ class User extends Controller {
 
     public function __construct(){
 
+        $this->Usermodel = $this->model('Usermodel');
+
     }
    
     public function login(){
@@ -33,10 +35,24 @@ class User extends Controller {
 
             //Validate Email 
 
-            if(empty($data['username'])):
+            if(empty($data['username'])){
                 $data['username_err'] = 'Veuillez entrer le nom d’utilisateur';
+                
 
-            endif;
+
+            }
+            
+            else{
+                
+                if($this->Usermodel->checkCredentials($data['username'], $data['password'])){
+
+                    $data['username_err'] =  "mot d'utilisateur est erroné";
+                    $data['password_err'] =  "mot de passe est erroné";
+
+                }
+            }
+
+             
 
 
             //Validate password 
