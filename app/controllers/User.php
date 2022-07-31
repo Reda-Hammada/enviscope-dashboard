@@ -66,10 +66,17 @@ class User extends Controller {
 
             if(empty($data['username_err']) && empty($data['password_err'])){
 
+
+                $this->startSession($data['username']);
+
+
+               
+               
+             
             }
             else {
 
-                $this->view('user/login', $data);
+                header('location:login');
             }
 
 
@@ -97,22 +104,38 @@ class User extends Controller {
     }
 
 
-    public function reset () {
+    public function startSession ($username) {
 
+        if($username){
+        session_start();
+        $_SESSION['user'] = $username;  
+        $this->dasboard();
+       
 
-        
+        }
 
+        else {
 
-
+            header('login');
+        }
     }
 
-    public function forget(){
+    public function dasboard(){
 
 
-
-        $this->view('user/forget');
+        $this->view('user/dashboard', $_SESSION['user']);
     }
     
+    public function logout(){
+
+        session_start();
+        unset($_SESSION['user']);
+        session_unset();
+        session_destroy();
+
+
+         header('location:login');
+    }
 }
 
 
