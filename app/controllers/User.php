@@ -24,9 +24,9 @@ class User extends Controller {
             //Init Data
                $data = [
 
-                'username' =>$_GET['username'],
+                'username' =>trim($_GET['username']),
                 'username_err'=>'',
-                'password'=> $_GET['password'],
+                'password'=>trim($_GET['password']),
                 'password_err' =>''
     
             ];
@@ -42,19 +42,7 @@ class User extends Controller {
 
             }
             
-            else{
-                
-                if($this->Usermodel->checkCredentials($data['username'], $data['password'])){
-
-                    $data['username_err'] =  "mot d'utilisateur est erroné";
-                    $data['password_err'] =  "mot de passe est erroné";
-
-                }
-            }
-
-             
-
-
+        
             //Validate password 
 
             if(empty($data['password'])):
@@ -67,7 +55,21 @@ class User extends Controller {
             if(empty($data['username_err']) && empty($data['password_err'])){
 
 
-                $this->startSession($data['username']);
+                $loggedUser = $this->Usermodel->Auth($data['username'], $data['password']);
+               if($loggedUser !=  false){
+
+                // pass the loggedUser to session method as an argument with callabck function 
+                $classname = 'User';
+                call_user_func(array($classname, 'session'),  $loggedUser);
+                
+               }else {
+
+                $data['username_err'] = "Le mot d'utilisatuer est erroné";
+                $data['password_err'] = "Le mot de passe est erroné";
+
+                $this->view('user/login', $data);
+               }
+
 
 
                
@@ -76,7 +78,11 @@ class User extends Controller {
             }
             else {
 
-                header('location:login');
+               
+                 
+            // Load view with errors
+            $this->view('User/login', $data);
+    
             }
 
 
@@ -93,49 +99,69 @@ class User extends Controller {
     
             ];
              
-        // Load view
+        // Load view for first time
         $this->view('User/login', $data);
 
         }
 
+
+        
      
 
 
     }
 
 
-    public function startSession ($username) {
+    public function session($user){
 
-        if($username){
-        session_start();
-        $_SESSION['user'] = $username;  
-        $this->dasboard();
+        if($user != false):
+
+            session_start();
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['username'] = $user['user_name'];
+            redirect('User/dashboard');
+        endif;
+
        
+        
 
-        }
-
-        else {
-
-            header('login');
-        }
     }
 
-    public function dasboard(){
 
 
-        $this->view('user/dashboard', $_SESSION['user']);
-    }
-    
-    public function logout(){
-
+    public function dashboard(){
         session_start();
-        unset($_SESSION['user']);
-        session_unset();
-        session_destroy();
+        if(isset($_SESSION['id'])):
+
+            $this->view('user/dashboard');
+
+        else:
+
+            redirect('user/login');
 
 
-         header('location:login');
+        endif;
+       
     }
+
+
+
+public function logout(){
+
+    unset($_SESSION['id']);
+    unset($_SESSION['username']);
+    session_start();
+    session_unset();
+    session_destroy();
+
+    if(!isset($_SESSION['id'])&&!isset($_SESSION['username'])){
+
+        redirect('user/login');
+    }
+
+
+}
+
 }
 
 

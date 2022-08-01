@@ -14,7 +14,7 @@ class Usermodel {
 
 
 
-    public function checkCredentials($username, $password){
+    public function Auth($username, $password){
 
 
         $this->db->query("SELECT * FROM admin WHERE user_name = :username");
@@ -23,16 +23,31 @@ class Usermodel {
 
         $result = $this->db->single();
 
-        if($result->user_name == $username && $result->pass_word == $password){
+        
 
-            return false;
+
+       if($result){
+        if($result['user_name'] == $username && $result['pass_word'] == $password){
+        
+            return $result;
+
         }
+       }
 
-        else {
+       $row = $this->db->rowCount();
 
-            return true;
-        }
+       if($row > 0){
+
+        return true;
+       }
+
+       else {
+
+        return false;
+       }
 
     }
+
+ 
  
 }
