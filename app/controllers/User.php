@@ -88,8 +88,10 @@ class User extends Controller {
 
             
         }else{
+            session_start();
+            if(!isset($_SESSION['id']) AND !isset($_SESSION['username'])):
 
-        //Init Data
+                 //Init Data
             $data = [
 
                 'username' =>'',
@@ -100,7 +102,14 @@ class User extends Controller {
             ];
              
         // Load view for first time
-        $this->view('User/login', $data);
+            $this->view('User/login', $data);
+            
+            else:
+
+
+            $this->view('user/dashboard');
+
+            endif;
 
         }
 
@@ -120,6 +129,10 @@ class User extends Controller {
             $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['user_name'];
             redirect('User/dashboard');
+
+        else:
+
+            redirect('user/login');
         endif;
 
        
