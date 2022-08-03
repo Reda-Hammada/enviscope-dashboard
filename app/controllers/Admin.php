@@ -32,7 +32,36 @@ Class Admin extends Controller {
 
         $this->view('admin/settings');
     }
+
+    public function bienvenue(){
+
+        $data = [];
+        $this->view('admin/bienvenue', $data);
+        
+    }
+
+    public function  competences(){
+
+        
+        $this->view('admin/projet');
+        
+    }
+
+    public function  references(){
+
+        
+        $this->view('admin/projet');
+        
+    }
+
+    public function projet() {
+
+
+        $this->view('admin/projet');
+        
+    }
 }
+
 
 
 ?>

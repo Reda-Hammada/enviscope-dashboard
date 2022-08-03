@@ -24,12 +24,12 @@ require_once '../app/views/inc/header.php';
 
              <input type="password" name="password"><br>
              <span ><?php echo $data['password_err'] ?></span>
-
+                
 
         </div>
         <div class='login'>
             
-            <input type="submit" name='login' value="login">
+            <input type="submit" name='login' value="connexion">
 
         </div>
     </form>
