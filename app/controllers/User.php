@@ -1,11 +1,23 @@
 <?php
 
 class User extends Controller {
+
+    public function index(){
+
+
+        $this->view('index');
+    }
     
 
     public function __construct(){
 
         $this->Usermodel = $this->model('Usermodel');
+
+
+        if(isLoggedIn()){
+            
+            redirect('admin/dashboard');
+        }
 
     }
    
@@ -24,7 +36,7 @@ class User extends Controller {
             //Init Data
                $data = [
 
-                'username' =>trim($_GET['username']),
+                'username' =>trim(ucwords($_GET['username'])),
                 'username_err'=>'',
                 'password'=>trim($_GET['password']),
                 'password_err' =>''
@@ -88,8 +100,7 @@ class User extends Controller {
 
             
         }else{
-            session_start();
-            if(!isset($_SESSION['id']) AND !isset($_SESSION['username'])):
+           
 
                  //Init Data
             $data = [
@@ -103,13 +114,7 @@ class User extends Controller {
              
         // Load view for first time
             $this->view('User/login', $data);
-            
-            else:
-
-
-            $this->view('user/dashboard');
-
-            endif;
+        
 
         }
 
@@ -128,34 +133,18 @@ class User extends Controller {
             session_start();
             $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['user_name'];
-            redirect('User/dashboard');
-
-        else:
-
-            redirect('user/login');
+            redirect('admin/dashboard');   
+            
+            
         endif;
-
-       
-        
 
     }
 
 
 
-    public function dashboard(){
-        session_start();
-        if(isset($_SESSION['id'])):
-
-            $this->view('user/dashboard');
-
-        else:
-
-            redirect('user/login');
 
 
-        endif;
-       
-    }
+
 
 
 
@@ -166,12 +155,7 @@ public function logout(){
     session_start();
     session_unset();
     session_destroy();
-
-    if(!isset($_SESSION['id'])&&!isset($_SESSION['username'])){
-
-        redirect('user/login');
-    }
-
+    redirect('user/login');
 
 }
 

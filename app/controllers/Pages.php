@@ -11,13 +11,4 @@
 
         }  
 
-
-        public function setting () {
-
-
-
-            $this->view('pages/setting');
-
-        }
-
     }

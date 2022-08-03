@@ -1,6 +1,4 @@
-
 <?php 
-
 
 class Usermodel { 
 
@@ -26,12 +24,14 @@ class Usermodel {
         
 
 
-       if($result){
+    if($result){
+
         if($result['user_name'] == $username && $result['pass_word'] == $password){
         
             return $result;
 
         }
+
        }
 
        $row = $this->db->rowCount();
@@ -39,11 +39,12 @@ class Usermodel {
        if($row > 0){
 
         return true;
-       }
 
-       else {
+       }else{
 
         return false;
+
+        
        }
 
     }
