@@ -86,4 +86,9 @@ span {
 /* dashbord */
 
 
+.add_rotate {
 
+    transform: rotate(180deg);
+    animation-delay: 0.25s;
+    animation-duration: 0.75s;
+}

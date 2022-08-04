@@ -42,20 +42,23 @@ Class Admin extends Controller {
 
     public function  competences(){
 
-        
+        $data = [];
+
         $this->view('admin/projet');
         
     }
 
     public function  references(){
 
-        
+        $data = [];
+
         $this->view('admin/projet');
         
     }
 
     public function projet() {
 
+        $data = [];
 
         $this->view('admin/projet');
         

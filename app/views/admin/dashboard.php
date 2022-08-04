@@ -32,7 +32,7 @@
        <h1 class='font-bold text-3xl pt-10 pl-10'>Bienvenue admin </h1>
  
         </section>
-        <section class='flex flex-row justify-between mt-10'>
+        <section class='flex flex-row justify-between mt-10 flex-wrap'>
            
             <div class= ' font-bold pt-8 pb-8 cursor-pointer rounded-md pt-auto h-32 ml-3 w-1/5 text-white text-center	bg-blue-900'>
                 <a href='<?php echo URLROOT ?>admin/bienvenue'>
@@ -47,10 +47,16 @@
 
             </div>
             <div class='cursor-pointer pt-8 pb-8  font-bold rounded-md w-1/4 text-white text-center	bg-blue-900'>
-                Projets en cours
+                <a href='<?php echo URLROOT ?>admin/projet'>
+
+                    Projets en cours
+                </a>
             </div>
             <div class='cursor-pointer pt-8 pb-8 font-bold rounded-md mr-3 w-1/4 text-white text-center	bg-blue-900'>
-                Compétences
+                <a href='<?php echo URLROOT ?>admin/competences'>
+
+                    Compétences
+                </a>
             </div>
         </section>
     </main>

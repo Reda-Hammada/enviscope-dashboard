@@ -23,3 +23,34 @@ const showSetting = () => {
     }
     
 }
+
+// add toggle 
+
+const showForm = () => {
+
+    let add = document.getElementById('add_toggle');    
+    let form = document.getElementById('form_container');
+    let arrow = document.getElementById('arrow');
+
+    if(add.click){
+
+        if(form.style.display === "none"){
+
+
+            arrow.style.position='sticky';
+            arrow.style.transform='rotate(180deg)';
+            arrow.style.animationDelay='0.25s';
+            arrow.style.animationDuration=' 0.75s';
+            form.style.display = 'flex';        
+
+        }
+
+        else {
+
+            arrow.style.transform='rotate(0deg)';
+            form.style.display='none';
+
+        }
+    }
+
+}
