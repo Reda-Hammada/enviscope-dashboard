@@ -54,3 +54,20 @@ const showForm = () => {
     }
 
 }
+
+
+// stop the form from getting submitted in case of error 
+
+const error= document.getElementById('error');
+
+if(error.hasChildNodes){
+
+    let form = document.getElementById('form_container');
+
+        form.style.display='flex';
+
+
+
+
+
+}

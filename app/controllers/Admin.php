@@ -6,6 +6,7 @@ Class Admin extends Controller {
 
     public function __construct(){
 
+        $this->Projectmodel = $this->model('Projectmodel');
 
         if(!isloggedIn()){
 
@@ -58,11 +59,87 @@ Class Admin extends Controller {
 
     public function projet() {
 
-        $data = [];
 
-        $this->view('admin/projet');
+
+            if(isset($_POST['add'])){
+
+                $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+
+                
+        $data = [
+
+
+            'id' =>"",
+            'year' =>$_POST['year'],
+            'projet' =>$_POST['projet'],
+            'projet_err'=>"",
+            'year_err' => "",
+        ];
+
+
+        
+        // validate inputs 
+
+        if(empty($data['year']) . empty($data['projet']) ){
+
+            $data['year_err'] = "Veuillez entrer l'année";
+            $data['projet_err'] = 'Veuillez entrer le projet';
+
+
+
+         }
+
+        // if(empty($data['projet'])){
+
+        //     $data['projet_err'] = 'Veuillez entrer le projet';
+
+
+        // }
+        if(empty($data['year_err']) && empty($data['projet_err'])){
+
+
+            $this->addProject($data['projet'], $data['year']);
+        
+
+        }else {
+            // load view with errors
+            $this->view('admin/projet', $data);
+
+
+           }
+
+            }else{
+        // load data into the view
+
+        $data = [
+
+
+            'id' =>"",
+            'year' =>"",
+            'projet' =>"",
+            'projet_err'=>"",
+            'year_err' => "",
+        ];
+
+        $this->view('admin/projet', $data);
         
     }
+
+}
+  
+    
+
+    public function addProject($project,$year){
+        
+        $this->Projectmodel->insertProject($project,$year);
+       redirect('admin/projet');
+    }
+
+
+    
+
+
 }
 
 

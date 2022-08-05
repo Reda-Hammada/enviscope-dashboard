@@ -33,25 +33,31 @@
 
         </div>
         <section class='w-9/12 mt-10 text-center'>
-            <div onclick=showForm() id='add_toggle' class='w-3/4 ml-auto h-12 pt-3 font-bold cursor-pointer	 flex justify-between pr-4 pl-4 bg-white'>
+            <div onclick=showForm() id='add_toggle' class=' rounded select-none	 w-3/4 ml-auto h-14 pt-3 font-bold cursor-pointer text-2xl		 flex justify-between pr-4 pl-4 bg-white'>
                 Ajouter un nouveau projet 
-                <i   id='arrow' style='color:gray; font-size:24px' class='fas  add_rotate'>&#xf106;</i>
+                <i   id='arrow'  class='fas text-blue-900  add_rotate'>&#xf106;</i>
 
             </div>
-            <div class="w-3/4 bg-white ml-auto " id="form_container" style='display:none'>
-                <form method='post' action='<?php echo URLROOT ?>admin/projet'>
-                    <div>
+            <div class="flex flex-col pt-8 pb-8  align-center  rounded w-3/4 bg-white ml-auto " id="form_container" style='display:none'>
+                <form id='form' method='post' action='<?php echo URLROOT ?>admin/projet'>
+                    <div class="pb-5">
 
-                        <input name ="year" type='text' placeholder="saiser l'annnee"/>
+                        <input class='text-center h-10 text-inherit  pl-4 border-double w-1/2 rounded  border-2 border-blue-900' name ="year" type='text' placeholder="saiser l'annnee"/><br>
+                        <span id='error' class='text-red-500 text-center'><?php echo $data['year_err'] ?></span>
+                        <?php
+                      
+                        ?>
+                    </div>
+                    <div class='pb-5'>
+
+                            <textarea name='projet' class=' text-inherit h-20 w-1/2 resize-none border-double border-2 rounded border-blue-900' >
+                            </textarea><br>
+                            <span id='error' class='text-red-500 text-center'><?php echo $data['projet_err'] ?></span>
 
                     </div>
-                    <div>
 
-                        <input name ='projet' type= 'text' placeholder ='saiser le projet'/>
-
-                    </div>
                     
-                    <input type='submit' name='add' value='ajouter'> 
+                    <input class=' cursor-pointer w-24 bg-blue-900 h-8 rounded-md text-white font-bold' type='submit' name='add' value='ajouter'> 
                 </form>
             </div>
         </section>
