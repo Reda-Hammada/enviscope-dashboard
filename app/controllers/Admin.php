@@ -91,14 +91,14 @@ Class Admin extends Controller {
 
          }
 
+
+         //check if errors empty to insert the project into database 
    
         if(empty($data['year_err']) && empty($data['projet_err'])){
 
 
             $this->addProject($data['projet'], $data['year']);
-            // $displayProject = $this->Projectmodel->getAllProjects();
 
- 
 
             
 
@@ -114,99 +114,53 @@ Class Admin extends Controller {
            }
 
             }else{
+
         // load data into the view
+        $displayProject = $this->Projectmodel->getAllProjects();
 
         $data = [
 
 
             'id' =>"",
             'year' =>"",
-            'projet' =>"",
+            'projet' =>$displayProject,
             'projet_err'=>"",
             'year_err' => "",
-            'project_added' => ""
+            'project_added' => "Added"
         ];
+
+       
+
 
         $this->view('admin/projet', $data);
 
-
-        // if($this->projet() == true){
-
-        //     $displayProject = $this->Projectmodel->getAllProjects();
-                     
-
-        //     $data =[
-        //         'id' => $displayProject['id'],
-        //         'projet' => $displayProject['project'],
-        //         'year' => $displayProject['year']
-        //     ];
-
-        //     $this->view('admin/projet', $data);
-
-     
-
-
-
-        // }
         
     }
 
 }
   
-    
+    //  insert project 
+
 
     public function addProject($project,$year){
         
         $this->Projectmodel->insertProject($project,$year); 
-
-
-        $data = [
-
-
-            'id' =>"",
-            'year' =>"",
-            'projet' =>"",
-            'projet_err'=>"",
-            'year_err' => "",
-            'project_added' => "added"
-        ];
-
-        $this->view('admin/projet', $data);
-
-
-              
+        redirect('admin/projet');
        
 
     }
 
 
+    // edit a project 
+
+    public function editProject($id){
+
+
+    }
 
     
 
 
-
-
-//  public function displayProjects () {
-
-//   $displayProject = $this->Projectmodel->getAllProjects();
-
-        
-                
-//         foreach($displayProject as $newProject):
-
-//             $data = [
-
-//                 'id' => $newProject['id'],
-//                 'projet' => $newProject['project'],
-//                 'year' => $newProject['year']
-//             ];
-
-//             $this->view('admin/projet', $data);
-
-//         endforeach;
-
-
-//  }
 
 
 }

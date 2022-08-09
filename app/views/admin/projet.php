@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel='stylesheet' href="<?php echo URLROOT?>asset/css/projet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>projet</title>
@@ -32,14 +33,9 @@
             <button class="w-40 bg-blue-900 h-12 rounded"><a class='text-white text-base font-bold' href= <?php echo URLROOT . 'admin/dashboard' ?>>Dashboard</a></button>
 
         </div>
-        <div id='projet added' class='text-center bg-blue-900 w-3/4 ml-auto mr-auto mt-5 text-white'>
-            <?php  if(isset($data['project_added'])){ 
+    
 
-         
-                    echo $data['project_added'];
-            }?>
-       
-        </div>
+        <!-- add project form -->
         <section class='w-9/12 mt-10 text-center'>
             <div onclick=showForm() id='add_toggle' class=' rounded select-none	 w-3/4 ml-auto h-14 pt-3 font-bold cursor-pointer text-2xl		 flex justify-between pr-4 pl-4 bg-white'>
                 Ajouter un nouveau projet 
@@ -52,9 +48,7 @@
 
                         <input class='text-center h-10 text-inherit  pl-4 border-double w-1/2 rounded  border-2 border-blue-900' name ="year" type='text' placeholder="saiser l'annnee"/><br>
                         <span id='error' class='text-red-500 text-center'><?php if(isset($data['year_err'])){  echo $data['year_err']; } ?></span>
-                        <?php
                       
-                        ?>
                     </div>
                     <div class='pb-5'>
 
@@ -70,7 +64,35 @@
             </div>
         </section>
         <section>
-            <table>
+
+            <!--projects table -->
+            <table class='table-fixed mt-10  w-3/4  text-center mr-auto ml-auto bg-white'>
+                <tr>
+                    <th>Id</th>
+                    <th>Year</th>
+                    <th>Projet</th>
+                    <th>Actions</th>
+
+                </tr>
+
+                <?php 
+
+        foreach($data['projet'] as $displayProject): ?>
+        
+            <tr>
+                <td><?php echo $displayProject['id']; ?>
+                <td><?php echo $displayProject['year']; ?>
+                <td><?php echo $displayProject['project']; ?>
+                <td><button><a href="<?php echo URLROOT?>admin/editProject/<?php echo $displayProject['id']; ?>">Modifier</a></button>
+                    <button><a href="<?php echo URLROOT?>admin/deleteProject/<?php echo $displayProject['id'];?>">Suprimer</a></button> 
+                </td>
+            </tr>
+            
+
+        <?php endforeach; ?>
+
+
+
             </table>
  
         </section>
