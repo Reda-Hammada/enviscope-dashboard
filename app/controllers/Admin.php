@@ -64,18 +64,19 @@ Class Admin extends Controller {
             if(isset($_POST['add'])){
 
                 $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+     
+                $data = [
 
+
+                    'id' =>"",
+                    'year' =>$_POST['year'],
+                    'projet' =>$_POST['projet'],
+                    'projet_err'=>"",
+                    'year_err' => "",
+                    'project_added' => "",
 
                 
-        $data = [
-
-
-            'id' =>"",
-            'year' =>$_POST['year'],
-            'projet' =>$_POST['projet'],
-            'projet_err'=>"",
-            'year_err' => "",
-        ];
+                ];
 
 
         
@@ -90,16 +91,19 @@ Class Admin extends Controller {
 
          }
 
-        // if(empty($data['projet'])){
-
-        //     $data['projet_err'] = 'Veuillez entrer le projet';
-
-
-        // }
+   
         if(empty($data['year_err']) && empty($data['projet_err'])){
 
 
             $this->addProject($data['projet'], $data['year']);
+            // $displayProject = $this->Projectmodel->getAllProjects();
+
+ 
+
+            
+
+            
+  
         
 
         }else {
@@ -120,9 +124,30 @@ Class Admin extends Controller {
             'projet' =>"",
             'projet_err'=>"",
             'year_err' => "",
+            'project_added' => ""
         ];
 
         $this->view('admin/projet', $data);
+
+
+        // if($this->projet() == true){
+
+        //     $displayProject = $this->Projectmodel->getAllProjects();
+                     
+
+        //     $data =[
+        //         'id' => $displayProject['id'],
+        //         'projet' => $displayProject['project'],
+        //         'year' => $displayProject['year']
+        //     ];
+
+        //     $this->view('admin/projet', $data);
+
+     
+
+
+
+        // }
         
     }
 
@@ -132,16 +157,58 @@ Class Admin extends Controller {
 
     public function addProject($project,$year){
         
-        $this->Projectmodel->insertProject($project,$year);
-       redirect('admin/projet');
+        $this->Projectmodel->insertProject($project,$year); 
+
+
+        $data = [
+
+
+            'id' =>"",
+            'year' =>"",
+            'projet' =>"",
+            'projet_err'=>"",
+            'year_err' => "",
+            'project_added' => "added"
+        ];
+
+        $this->view('admin/projet', $data);
+
+
+              
+       
+
     }
+
 
 
     
 
 
+
+
+//  public function displayProjects () {
+
+//   $displayProject = $this->Projectmodel->getAllProjects();
+
+        
+                
+//         foreach($displayProject as $newProject):
+
+//             $data = [
+
+//                 'id' => $newProject['id'],
+//                 'projet' => $newProject['project'],
+//                 'year' => $newProject['year']
+//             ];
+
+//             $this->view('admin/projet', $data);
+
+//         endforeach;
+
+
+//  }
+
+
 }
 
-
-
-?>
+ ?>

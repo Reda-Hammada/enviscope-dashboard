@@ -32,6 +32,14 @@
             <button class="w-40 bg-blue-900 h-12 rounded"><a class='text-white text-base font-bold' href= <?php echo URLROOT . 'admin/dashboard' ?>>Dashboard</a></button>
 
         </div>
+        <div id='projet added' class='text-center bg-blue-900 w-3/4 ml-auto mr-auto mt-5 text-white'>
+            <?php  if(isset($data['project_added'])){ 
+
+         
+                    echo $data['project_added'];
+            }?>
+       
+        </div>
         <section class='w-9/12 mt-10 text-center'>
             <div onclick=showForm() id='add_toggle' class=' rounded select-none	 w-3/4 ml-auto h-14 pt-3 font-bold cursor-pointer text-2xl		 flex justify-between pr-4 pl-4 bg-white'>
                 Ajouter un nouveau projet 
@@ -43,7 +51,7 @@
                     <div class="pb-5">
 
                         <input class='text-center h-10 text-inherit  pl-4 border-double w-1/2 rounded  border-2 border-blue-900' name ="year" type='text' placeholder="saiser l'annnee"/><br>
-                        <span id='error' class='text-red-500 text-center'><?php echo $data['year_err'] ?></span>
+                        <span id='error' class='text-red-500 text-center'><?php if(isset($data['year_err'])){  echo $data['year_err']; } ?></span>
                         <?php
                       
                         ?>
@@ -52,7 +60,7 @@
 
                             <textarea name='projet' class=' text-inherit h-20 w-1/2 resize-none border-double border-2 rounded border-blue-900' >
                             </textarea><br>
-                            <span id='error' class='text-red-500 text-center'><?php echo $data['projet_err'] ?></span>
+                            <span id='error' class='text-red-500 text-center'><?php if(isset($data['projet_err'])){ echo $data['projet_err']; } ?></span>
 
                     </div>
 
@@ -60,6 +68,11 @@
                     <input class=' cursor-pointer w-24 bg-blue-900 h-8 rounded-md text-white font-bold' type='submit' name='add' value='ajouter'> 
                 </form>
             </div>
+        </section>
+        <section>
+            <table>
+            </table>
+ 
         </section>
 
     </main>
