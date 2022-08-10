@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>projet</title>
 </head>
-<body>
+<body class='bg-zinc-100'> 
 <header>
-        <nav class="w-full flex relative  justify-evenly">
+        <nav class="w-full flex relative bg-white justify-evenly pb-5">
             <div class="w-9/12">
                 <img class="w-52 pl-2.5 pt-2.5" src="<?php echo URLROOT   ?>asset/images/logo.jpg" alt='logo'>
             </div>
@@ -44,12 +44,7 @@
             </div>
             <div class="flex flex-col pt-8 pb-8  align-center  rounded w-3/4 bg-white ml-auto " id="form_container" style='display:none'>
                 <form id='form' method='post' action='<?php echo URLROOT ?>admin/projet'>
-                    <div class="pb-5">
-
-                        <input class='text-center h-10 text-inherit  pl-4 border-double w-1/2 rounded  border-2 border-blue-900' name ="year" type='text' placeholder="saiser l'annnee"/><br>
-                        <span id='error' class='text-red-500 text-center'><?php if(isset($data['year_err'])){  echo $data['year_err']; } ?></span>
-                      
-                    </div>
+                   
                     <div class='pb-5'>
 
                             <textarea name='projet' class=' text-inherit h-20 w-1/2 resize-none border-double border-2 rounded border-blue-900' >
@@ -66,35 +61,47 @@
         <section>
 
             <!--projects table -->
-            <table class='table-fixed mt-10  w-3/4  text-center mr-auto ml-auto bg-white'>
+            <table class='table-fixed mt-8 rounded w-3/4  text-center mr-auto ml-auto bg-white pb-5 border-separate border-spacing-2 border border-slate-500 mb-20'>
                 <tr>
                     <th>Id</th>
-                    <th>Year</th>
                     <th>Projet</th>
                     <th>Actions</th>
 
                 </tr>
 
                 <?php 
-
-        foreach($data['projet'] as $displayProject): ?>
+            if(isset($data['project_added'])):
+        foreach($data['project_added'] as $displayProject): ?>
         
             <tr>
                 <td><?php echo $displayProject['id']; ?>
-                <td><?php echo $displayProject['year']; ?>
                 <td><?php echo $displayProject['project']; ?>
-                <td><button><a href="<?php echo URLROOT?>admin/editProject/<?php echo $displayProject['id']; ?>">Modifier</a></button>
-                    <button><a href="<?php echo URLROOT?>admin/deleteProject/<?php echo $displayProject['id'];?>">Suprimer</a></button> 
+                <td><button id='edit_button' class='bg-blue-900 w-20 text-white rounded text-center '><a href="<?php echo URLROOT?>admin/editProject/<?php echo $displayProject['id']; ?>">Modifier</a></button>
+                    <button class='bg-red-900 w-20 text-white rounded text-center ' ><a href="<?php echo URLROOT?>admin/deleteProject/<?php echo $displayProject['id'];?>">Suprimer</a></button> 
                 </td>
             </tr>
             
 
-        <?php endforeach; ?>
+        <?php endforeach; 
+              endif;
+              ?>
 
 
 
             </table>
  
+        </section>
+        <section class='w-full h-100vh bg-black' id="edit_container">
+            <div class="form">
+                <form method='POST' method=''>
+                    <div>
+                        <textarea name='project'></textarea>
+                    <div>
+                    <div>
+                        <input type='submit' name='edit' value='Modifier projet' >
+                    </div>
+                </form>
+            </div>
         </section>
 
     </main>

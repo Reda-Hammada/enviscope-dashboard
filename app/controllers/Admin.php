@@ -34,12 +34,6 @@ Class Admin extends Controller {
         $this->view('admin/settings');
     }
 
-    public function bienvenue(){
-
-        $data = [];
-        $this->view('admin/bienvenue', $data);
-        
-    }
 
     public function  competences(){
 
@@ -57,9 +51,14 @@ Class Admin extends Controller {
         
     }
 
+
+
+
+    // Project starts 
     public function projet() {
 
-
+        // loads added projects from database
+        $displayProject = $this->Projectmodel->getAllProjects();
 
             if(isset($_POST['add'])){
 
@@ -69,11 +68,9 @@ Class Admin extends Controller {
 
 
                     'id' =>"",
-                    'year' =>$_POST['year'],
                     'projet' =>$_POST['projet'],
                     'projet_err'=>"",
-                    'year_err' => "",
-                    'project_added' => "",
+                    'project_added' => $displayProject,
 
                 
                 ];
@@ -82,9 +79,8 @@ Class Admin extends Controller {
         
         // validate inputs 
 
-        if(empty($data['year']) . empty($data['projet']) ){
+        if(empty($data['projet']) ){
 
-            $data['year_err'] = "Veuillez entrer l'année";
             $data['projet_err'] = 'Veuillez entrer le projet';
 
 
@@ -94,10 +90,10 @@ Class Admin extends Controller {
 
          //check if errors empty to insert the project into database 
    
-        if(empty($data['year_err']) && empty($data['projet_err'])){
+        if(empty($data['projet_err'])){
 
 
-            $this->addProject($data['projet'], $data['year']);
+            $this->addProject($data['projet']);
 
 
             
@@ -122,11 +118,10 @@ Class Admin extends Controller {
 
 
             'id' =>"",
-            'year' =>"",
-            'projet' =>$displayProject,
+            'projet' =>"",
             'projet_err'=>"",
-            'year_err' => "",
-            'project_added' => "Added"
+            'project_added' => $displayProject,
+
         ];
 
        
@@ -142,9 +137,9 @@ Class Admin extends Controller {
     //  insert project 
 
 
-    public function addProject($project,$year){
+    public function addProject($project){
         
-        $this->Projectmodel->insertProject($project,$year); 
+        $this->Projectmodel->insertProject($project); 
         redirect('admin/projet');
        
 
@@ -155,10 +150,66 @@ Class Admin extends Controller {
 
     public function editProject($id){
 
+        if(isset($_POST['edit'])):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        else:       
+            // display projects data from project model
+            $displayProject = $this->Projectmodel->getAllProjects();
+
+            $getProjectById = $this->Projectmodel->getProjectById($id);
+
+
+    
+            $data = [
+
+                
+
+                'id' =>"",
+                'projet' =>"",
+                'projet_err'=>"",
+                'project_added' => $displayProject,
+                'editProject' =>$getProjectById['project']
+
+            ];
+
+            $this->view('admin/projet', $data);
+        endif;
 
     }
 
-    
+    // Delete a project 
+    public function deleteProject($id){
+        $this->Projectmodel->deleteProject($id);
+        redirect('admin/projet');
+
+    }
+       
+    // Project ends  
+
+    // Bienvenue starts 
+
+    public function bienvenue(){
+
+        $data = [];
+        $this->view('admin/bienvenue', $data);
+        
+    }
+
+    //Bienvenue ends 
 
 
 

@@ -72,3 +72,13 @@ if(error.hasChildNodes){
 
 }
 
+
+
+//  show edit form 
+
+const editButton = document.getElementById('edit_button');
+editButton.onclick =  function () {
+
+    let container =  document.getElementById('');
+    container.style.display='flex';
+}
