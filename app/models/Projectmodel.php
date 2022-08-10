@@ -52,7 +52,15 @@
 
 
 
+        // Edit project by id
+        public function editProject($id, $project){
 
+            $this->db->query('UPDATE projet SET project = :project WHERE id = :id');
+            $this->db->bind(':project', $project);
+            $this->db->bind(':id', $id);
+            $this->db->execute();
+
+        }
 
         // delete a single project by id
         public function deleteProject($id){

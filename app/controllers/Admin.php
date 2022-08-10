@@ -16,6 +16,9 @@ Class Admin extends Controller {
     
     }
 
+ 
+    
+
 
     public function dashboard(){
 
@@ -148,32 +151,39 @@ Class Admin extends Controller {
 
     // edit a project 
 
-    public function editProject($id){
+    public function editProjet($id){
 
         if(isset($_POST['edit'])):
 
+            $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+             // display projects data from project model
+             $displayProject = $this->Projectmodel->getAllProjects();
+
+            $data = [
+                'id'=>$id,
+                'projet'=>$_POST['project'],
+                'project_added' => $displayProject,
+
+                     ];
 
 
+           
+            // load the editted project from the controller to the model to update the project 
 
+            $this->Projectmodel->editProject($data['id'], $data['projet']);
 
-
-
-
-
-
-
-
-
-
-
+            // redirect to project page 
+            redirect('admin/projet');
+            
         else:       
             // display projects data from project model
             $displayProject = $this->Projectmodel->getAllProjects();
 
+            // Get project by id to load it into the view
             $getProjectById = $this->Projectmodel->getProjectById($id);
 
-
-    
+            // load data (the selected project to edit) to the view 
             $data = [
 
                 
@@ -186,7 +196,8 @@ Class Admin extends Controller {
 
             ];
 
-            $this->view('admin/projet', $data);
+            $this->view('admin/editProjet', $data);
+
         endif;
 
     }

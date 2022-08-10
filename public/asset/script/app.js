@@ -76,9 +76,46 @@ if(error.hasChildNodes){
 
 //  show edit form 
 
-const editButton = document.getElementById('edit_button');
-editButton.onclick =  function () {
 
-    let container =  document.getElementById('');
+const body= document.getElementById('body');
+ body.onload=   function () { 
+    
+    const container = document.getElementById('edit_container');
+    
+    const blurred = [
+
+        document.getElementById('dashboard'),
+        document.getElementById('nav_container'),
+        document.getElementById('data_table'),
+        document.getElementById('add_container'),
+    ];
+
+    for(let i = 0;  i < blurred.length; i++){
+
+        blurred[i].style.filter='blur(1.5rem)';
+    }
     container.style.display='flex';
+}
+
+
+// hide edit form 
+
+const close = document.getElementById('c');
+
+close.onclick = function (){
+
+    const blurred = [
+
+        document.getElementById('dashboard'),
+        document.getElementById('nav_container'),
+        document.getElementById('data_table'),
+        document.getElementById('add_container'),
+    ];
+
+    for(let i = 0;  i < blurred.length; i++){
+
+        blurred[i].style.filter='blur(0)';
+    }
+
+    document.getElementById('edit_container').style.display='none';
 }

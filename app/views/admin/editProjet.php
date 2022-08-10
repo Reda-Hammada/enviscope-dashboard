@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>projet</title>
 </head>
-<body class='bg-zinc-100'> 
-<header >
+<body id='body' class='bg-zinc-100'> 
+<header id='nav_container'>
         <nav class="w-full flex relative bg-white justify-evenly pb-5">
             <div class="w-9/12">
                 <img class="w-52 pl-2.5 pt-2.5" src="<?php echo URLROOT   ?>asset/images/logo.jpg" alt='logo'>
@@ -36,7 +36,7 @@
     
 
         <!-- add project form -->
-        <section class='w-9/12 mt-10 text-center'>
+        <section id='add_container' class='w-9/12 mt-10 text-center'>
             <div onclick=showForm() id='add_toggle' class=' rounded select-none	 w-3/4 ml-auto h-14 pt-3 font-bold cursor-pointer text-2xl		 flex justify-between pr-4 pl-4 bg-white'>
                 Ajouter un nouveau projet 
                 <i   id='arrow'  class='fas text-blue-900  add_rotate'>&#xf106;</i>
@@ -58,7 +58,7 @@
                 </form>
             </div>
         </section>
-        <section >
+        <section id='data_table'>
 
             <!--projects table -->
             <table class='table-fixed mt-8 rounded w-3/4  text-center mr-auto ml-auto bg-white pb-5 border-separate border-spacing-2 border border-slate-500 mb-20'>
@@ -76,7 +76,7 @@
             <tr>
                 <td><?php echo $displayProject['id']; ?>
                 <td><?php echo $displayProject['project']; ?>
-                <td ><button  class='bg-blue-900 w-20 text-white rounded text-center '><a  href="<?php echo URLROOT?>admin/editProjet/<?php echo $displayProject['id']; ?>">Modifier</a></button>
+                <td ><button  id='edit_button'  class='bg-blue-900 w-20 text-white rounded text-center '><a id='edit_button' href="<?php echo URLROOT?>admin/editProjet/<?php echo $displayProject['id']; ?>">Modifier</a></button>
                     <button class='bg-red-900 w-20 text-white rounded text-center ' ><a href="<?php echo URLROOT?>admin/deleteProject/<?php echo $displayProject['id'];?>">Suprimer</a></button> 
                 </td>
             </tr>
@@ -91,7 +91,24 @@
             </table>
  
         </section>
-       
+        <section class='w-full h-screen absolute inset-0 bottom-0.5		' id="edit_container"> 
+            <span id="c">x</span>
+            <div class="flex flex-col pt-8 pb-8  align-center h-56	pt-10 pb-10 rounded w-3/4 bg-white ml-auto mr-auto">
+                <form method='POST' >
+                    <div>
+                        <textarea name='project'><?php
+                                if(isset($data['editProject'])):
+
+                                    echo $data['editProject'];
+                                endif;
+                        ?></textarea>
+                    <div>
+                    <div>
+                        <input type='submit' name='edit' value='Modifier projet' >
+                    </div>
+                </form>
+            </div>
+        </section>
 
     </main>
 
