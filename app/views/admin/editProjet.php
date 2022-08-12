@@ -92,19 +92,23 @@
  
         </section>
         <section class='w-full h-screen absolute inset-0 bottom-0.5		' id="edit_container"> 
-            <span id="c">x</span>
-            <div class="flex flex-col pt-8 pb-8  align-center h-56	pt-10 pb-10 rounded w-3/4 bg-white ml-auto mr-auto">
+            <div class="flex flex-col pt-8 pb-8  align-center h-80 mt-48	pt-10 pb-10 rounded w-3/4 bg-white ml-auto mr-auto">
+
                 <form method='POST' >
-                    <div>
-                        <textarea name='project'><?php
+                <span class='float-right mr-10 mt-0.5 font-bold cursor-pointer hover:text-blue-900 text-xl	 ' id="c">x</span>
+
+                    <div class='text-center pt-20'>
+                        <textarea class=' pl-4 text- h-20 w-1/2 resize-none border-double border-2 rounded border-blue-900' name='project'><?php
                                 if(isset($data['editProject'])):
 
                                     echo $data['editProject'];
+
+
                                 endif;
                         ?></textarea>
                     <div>
                     <div>
-                        <input type='submit' name='edit' value='Modifier projet' >
+                        <input class=' mt-2 cursor-pointer w-32 bg-blue-900 h-8 rounded-md text-white font-bold' type='submit' name='edit' value='Modifier projet' >
                     </div>
                 </form>
             </div>

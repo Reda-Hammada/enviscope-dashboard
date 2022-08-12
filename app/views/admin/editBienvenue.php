@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>projet</title>
 </head>
-<body class='bg-zinc-100'> 
-<header >
+<body id='body' class='bg-zinc-100'> 
+<header id='nav_container'>
         <nav class="w-full flex relative bg-white justify-evenly pb-5">
             <div class="w-9/12">
                 <img class="w-52 pl-2.5 pt-2.5" src="<?php echo URLROOT   ?>asset/images/logo.jpg" alt='logo'>
@@ -35,21 +35,22 @@
         </div>
     
 
-        <!-- add project form -->
-        <section class='w-9/12 mt-10 text-center'>
+        <!-- add bienvenue form -->
+        <section id='add_container' class='w-9/12 mt-10 text-center'>
             <div onclick=showForm() id='add_toggle' class=' rounded select-none	 w-3/4 ml-auto h-14 pt-3 font-bold cursor-pointer text-2xl		 flex justify-between pr-4 pl-4 bg-white'>
-                Ajouter un nouveau projet 
+                Ajouter Bienvenue 
                 <i   id='arrow'  class='fas text-blue-900  add_rotate'>&#xf106;</i>
 
             </div>
             <div class="flex flex-col pt-8 pb-8  align-center  rounded w-3/4 bg-white ml-auto " id="form_container" style='display:none'>
-                <form id='form' method='post' action='<?php echo URLROOT ?>admin/projet'>
+                <form id='form' method='post' action='<?php echo URLROOT ?>admin/bienvenue'>
                    
                     <div class='pb-5'>
 
                             <textarea name='projet' class=' text-inherit h-20 w-1/2 resize-none border-double border-2 rounded border-blue-900' >
+                             
                             </textarea><br>
-                            <span id='error' class='text-red-500 text-center'><?php if(isset($data['projet_err'])){ echo $data['projet_err']; } ?></span>
+                            <span id='error' class='text-red-500 text-center'><?php if(isset($data['bienvenue_err'])){ echo $data['bienvenue_err']; } ?></span>
 
                     </div>
 
@@ -58,24 +59,23 @@
                 </form>
             </div>
         </section>
-        <section >
+        <section id='data_table'>
 
-            <!--projects table -->
+            <!--bienvenu table -->
             <table class='table-fixed mt-8 rounded w-3/4  text-center mr-auto ml-auto bg-white pb-5 border-separate border-spacing-2 border border-slate-500 mb-20'>
                 <tr>
-                    <th>Projet</th>
+                    <th>bienvenu</th>
                     <th>Actions</th>
 
                 </tr>
 
                 <?php 
-            if(isset($data['project_added'])):
-        foreach($data['project_added'] as $displayProject): ?>
+            if(isset($data['bienvenue_added'])):
+        foreach($data['bienvenue_added'] as $bienvenue): ?>
         
             <tr>
-                <td><?php echo $displayProject['project']; ?>
-                <td ><button  class='bg-blue-900 w-20 text-white rounded text-center '><a  href="<?php echo URLROOT?>admin/editProjet/<?php echo $displayProject['id']; ?>">Modifier</a></button>
-                    <button class='bg-red-900 w-20 text-white rounded text-center ' ><a href="<?php echo URLROOT?>admin/deleteProject/<?php echo $displayProject['id'];?>">Suprimer</a></button> 
+                <td><?php echo $bienvenue['bien']; ?>
+                <td ><button  id='edit_button'  class='bg-blue-900 w-20 text-white rounded text-center '><a id='edit_button' href="<?php echo URLROOT?>admin/editBienvenue/<?php echo $bienvenue['id']; ?>">Modifier</a></button>
                 </td>
             </tr>
             
@@ -89,7 +89,26 @@
             </table>
  
         </section>
-       
+        <section class='w-full h-screen absolute inset-0 bottom-0.5		' id="edit_container"> 
+            <div class="flex flex-col pt-8 pb-8  align-center h-80 mt-48	pt-10 pb-10 rounded w-3/4 bg-white ml-auto mr-auto">
+
+                <form method='POST' actio>
+                <span class='float-right mr-10 mt-0.5 font-bold cursor-pointer hover:text-blue-900 text-xl	 ' id="c">x</span>
+
+                    <div class='text-center pt-20'>
+                        <textarea class='h-20 w-1/2 resize-none border-double border-2 rounded border-blue-900' name='bien'>
+                                  <?php if(isset($data['edit_bienvenue'])):
+                                    echo $data['edit_bienvenue'];
+                                    endif;
+                                    ?>
+                        </textarea>
+                    <div>
+                    <div>
+                        <input class=' mt-2 cursor-pointer w-52 bg-blue-900 h-8 rounded-md text-white font-bold' type='submit' name='editBien' value='Modifier bienvenue' >
+                    </div>
+                </form>
+            </div>
+        </section>
 
     </main>
 
