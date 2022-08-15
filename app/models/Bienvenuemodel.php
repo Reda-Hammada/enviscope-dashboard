@@ -12,10 +12,22 @@ class Bienvenuemodel {
 
     public function addBienvenue($bienvenue){
 
-        $this->db->query("INSERT INTO bienvenue (bien) VALUES(:bienvenue)");
-        $this->db->bind(":bienvenue", $bienvenue);
-        $this->db->execute();
 
+        var_dump($count = $this->db->rowCount());
+         if($count == 0):
+
+            $this->db->query("INSERT INTO bienvenue (bien) VALUES(:bienvenue)");
+            $this->db->bind(":bienvenue", $bienvenue);
+            $this->db->execute();
+            return true;
+
+        else:
+
+            return false;
+
+        
+                
+        endif;
     }
     public function getBienvenue(){
 

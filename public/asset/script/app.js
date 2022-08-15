@@ -78,6 +78,7 @@ if(error.hasChildNodes){
 
 
 const body= document.getElementById('body');
+
  body.onload=   function () { 
     
     const container = document.getElementById('edit_container');

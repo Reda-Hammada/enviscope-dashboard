@@ -7,10 +7,10 @@
     <link rel='stylesheet' href="<?php echo URLROOT?>asset/css/projet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>References</title>
+    <title>projet</title>
 </head>
-<body class='bg-zinc-100'> 
-<header >
+<body id='body' class='bg-zinc-100'> 
+<header id='nav_container'>
         <nav class="w-full flex relative bg-white justify-evenly pb-5">
             <div class="w-9/12">
                 <img class="w-52 pl-2.5 pt-2.5" src="<?php echo URLROOT   ?>asset/images/logo.jpg" alt='logo'>
@@ -35,8 +35,8 @@
         </div>
     
 
-        <!-- add reference form -->
-        <section class='w-9/12 mt-10 text-center'>
+       <!-- add reference form -->
+       <section id='add_container' class='w-9/12 mt-10 text-center'>
             <div onclick=showForm() id='add_toggle' class=' rounded select-none	 w-3/4 ml-auto h-14 pt-3 font-bold cursor-pointer text-2xl		 flex justify-between pr-4 pl-4 bg-white'>
                 Ajouter  référence
                 <i   id='arrow'  class='fas text-blue-900  add_rotate'>&#xf106;</i>
@@ -60,10 +60,10 @@
                 </form>
             </div>
         </section>
-        <section >
+        <section id='data_table'>
 
-            <!--references table -->
-            <table class='table-fixed mt-8 rounded w-3/4  text-center mr-auto ml-auto bg-white pb-5 border-separate border-spacing-2 border border-slate-500 mb-20'>
+             <!--references table -->
+             <table class='table-fixed mt-8 rounded w-3/4  text-center mr-auto ml-auto bg-white pb-5 border-separate border-spacing-2 border border-slate-500 mb-20'>
                 <tr>
                     <th>Année</th>
                     <th>Référence</th>
@@ -94,6 +94,28 @@
  
         </section>
        
+        <!-- edit reference -->
+        <section class='w-full h-screen absolute inset-0 bottom-0.5		' id="edit_container"> 
+            <div class="flex flex-col pt-8 pb-8  align-center h-80 mt-48	pt-10 pb-10 rounded w-3/4 bg-white ml-auto mr-auto">
+
+                <form method='POST' >
+                <span class='float-right mr-10 mt-0.5 font-bold cursor-pointer hover:text-blue-900 text-xl	 ' id="c">x</span>
+
+                    <div class='text-center pt-20'>
+
+                        <?php if(isset($data['edit_year'])): ?>
+                        <input  class='mb-5 text-inherit pl-3 h-10 mb-3 w-1/2  border-double border-2 rounded border-blue-900' value="<?php echo $data['edit_year']?>" type='text' name='year' placeholder='veuillez entrer l’année'><br>
+                        <?php endif; ?>
+                        <textarea class='h-20 w-1/2 resize-none border-double border-2 rounded border-blue-900' name='reference'>  <?php if(isset($data['edit_reference'])): echo $data['edit_reference']; endif; ?></textarea>
+                                 
+                      
+                    <div>
+                    <div>
+                        <input class=' mt-2 cursor-pointer w-52 bg-blue-900 h-8 rounded-md text-white font-bold' type='submit' name='editReference' value='Modifier référence' >
+                    </div>
+                </form>
+            </div>
+        </section>
 
     </main>
 

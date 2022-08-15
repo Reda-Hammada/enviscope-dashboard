@@ -62,7 +62,7 @@
         <section id='data_table'>
 
             <!--bienvenu table -->
-            <table class='table-fixed mt-8 rounded w-3/4  text-center mr-auto ml-auto bg-white pb-5 border-separate border-spacing-2 border border-slate-500 mb-20'>
+         <table class='table-fixed mt-8 rounded w-3/4  text-center mr-auto ml-auto bg-white pb-5 border-separate border-spacing-2 border border-slate-500 mb-20'>
                 <tr>
                     <th>bienvenu</th>
                     <th>Actions</th>

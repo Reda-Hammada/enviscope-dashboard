@@ -7,6 +7,7 @@ Class Admin extends Controller {
     public function __construct(){
 
         // load models into the controller once the controller is called 
+        $this->Referencemodel =  $this->model('Referencemodel');
         $this->Projectmodel = $this->model('Projectmodel');
         $this->Bienvenuemodel = $this->model('Bienvenuemodel');
         
@@ -54,16 +55,7 @@ Class Admin extends Controller {
     }
     // competence ends
 
-    // reference starts
-    // reference view
-    public function  references(){
-
-        $data = [];
-
-        $this->view('admin/projet');
-        
-    }
-    //reference ends 
+ 
 
 
 
@@ -226,63 +218,66 @@ Class Admin extends Controller {
     // Bienvenue starts 
 
     public function bienvenue(){
+        
+
+
+            if(isset($_POST['add'])):
+
+                $bienvenue = $this->Bienvenuemodel->getBienvenue();
+                $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
+            
+                $data = [
+
+
+                    'id' =>"",
+                    'bienvenue' =>trim($_POST['bienvenue']),
+                    'bienvenue_err'=>"",
+                    'bienvenue_added' => $bienvenue,
+
+                
+                ];
+
+                if(empty($data['bienvenue'])):
+
+                    $data['bienvenue_err'] =  "Veuillez entrer bienvenue";
+
+
+                    // loads view with errors
+                    $this->view('admin/bienvenue', $data);
+                endif;
+                
+                if(empty($data['bienvenue_err'])):
+
+                            $this->Bienvenuemodel->addBienvenue($data['bienvenue']);
+                            redirect('admin/bienvenue');
+                            
+                    
+
+
+                endif;
+        
 
             
-        if(isset($_POST['add'])):
-
-            $bienvenue = $this->Bienvenuemodel->getBienvenue();
-            $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             
         
+        
+        else:  
+
+            $bienvenue = $this->Bienvenuemodel->getBienvenue();
+
             $data = [
-
-
-                'id' =>"",
-                'bienvenue' =>trim($_POST['bienvenue']),
+                'id'=>"",
+                'bienvenue'=>"",
                 'bienvenue_err'=>"",
                 'bienvenue_added' => $bienvenue,
 
-            
             ];
 
-            if(empty($data['bienvenue'])):
+            $this->view('admin/bienvenue', $data);
 
-                $data['bienvenue_err'] =  "Veuillez entrer bienvenue";
-
-
-                // loads view with errors
-                $this->view('admin/bienvenue', $data);
-            endif;
-            
-            if(empty($data['bienvenue_err'])):
-
-                 $this->Bienvenuemodel->addBienvenue($data['bienvenue']);
-                
-
-
-            endif;
-      
-
-        
-        
-    
-    
-    else:  
-
-        $bienvenue = $this->Bienvenuemodel->getBienvenue();
-
-        $data = [
-            'id'=>"",
-            'bienvenue'=>"",
-            'bienvenue_err'=>"",
-            'bienvenue_added' => $bienvenue,
-
-        ];
-
-        $this->view('admin/bienvenue', $data);
-
-    endif;
-
+        endif;
+  
 
     }
 
@@ -340,6 +335,150 @@ Class Admin extends Controller {
     }
 
     //Bienvenue ends 
+
+
+       // reference starts
+    // reference view
+    public function  references(){
+
+
+        
+        if(isset($_POST['add'])):
+            
+            $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $displayReferences = $this->Referencemodel->getAllReferences();
+
+            $data = [
+                'reference'=>trim($_POST['reference']),
+                'year'=>trim($_POST['year']),
+                'reference_err'=>"",
+                'year_err'=>"",
+                'reference_added'=>$displayReferences
+
+            ];
+
+
+            if(empty($data['reference'])):
+
+                $data['reference_err'] = "Veuillez entrer référence";
+
+            endif;
+
+            if(empty($data['year'])):
+
+                    $data['year_err']  = "Veuillez entrer l'année"; 
+            endif;
+
+    
+            if(empty($data['reference_err']) && empty($data['year_err'])):
+
+                
+                $this->Referencemodel->addReference($data['reference'], $data['year']);
+                redirect('admin/references');
+            else:
+
+                //load view with errors
+                $this->view('admin/references', $data);
+        
+            endif;
+
+        else:
+        
+            $displayReferences = $this->Referencemodel->getAllReferences();
+            $data = [
+                'reference'=>"",
+                'year'=>"",
+                'reference_err'=>"",
+                'year_err'=>"",
+                'reference_added'=>$displayReferences
+            ];
+
+            $this->view('admin/references', $data);
+    
+        endif;
+        
+    }
+
+    // edit a reference 
+
+    public function editReference($id){
+
+    if(isset($_POST['editReference'])):
+
+
+        $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // load all references into the view
+        $displayReferences = $this->Referencemodel->getAllReferences();
+
+        // load single reference to be editted in the view
+        $reference = $this->Referencemodel->getAReferenceById($id);
+
+        $data = [
+
+            'reference'=>"",
+            'year'=>"",
+            'reference_err'=>"",
+            'year_err'=>"",
+            'edit_reference'=>$reference['reference'],
+            'edit_year'=>$reference['year'],
+            'reference_edit'=>trim($_POST['reference']),
+            'year_edit'=>trim($_POST['year']),
+            'reference_added'=>$displayReferences
+
+
+        ];
+
+        $this->Referencemodel->editReference($id, $data['reference_edit'], $data['year_edit']);
+        redirect('admin/references');
+
+    
+
+
+    
+
+    else:
+
+
+        // load all references into the view
+        $displayReferences = $this->Referencemodel->getAllReferences();
+
+        // load single reference to be editted in the view
+        $reference = $this->Referencemodel->getAReferenceById($id);
+
+        $data = [
+
+            'reference'=>"",
+            'year'=>"",
+            'reference_err'=>"",
+            'year_err'=>"",
+            'edit_reference'=>$reference['reference'],
+            'edit_year'=>$reference['year'],
+            'reference_edit'=>"",
+            'year_edit'=>"",
+            'reference_added'=>$displayReferences
+
+
+        ];
+
+        $this->view('admin/editReference', $data);
+
+
+    endif;
+
+    }
+
+
+
+
+    //delete a reference 
+
+    public function deleteById($id){
+
+        $this->Referencemodel->DeleteReference($id);
+        redirect('admin/references');
+    }
+    //reference ends 
 
 
 
