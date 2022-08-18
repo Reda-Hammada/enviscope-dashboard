@@ -41,7 +41,6 @@
                 <i   id='arrow'  class='fas text-blue-900  add_rotate'>&#xf106;</i>
 
             </div>
-            <!-- <div><?php echo $data['count'] ?></div> -->
             <div class="flex flex-col pt-8 pb-8  align-center  rounded w-3/4 bg-white ml-auto " id="form_container" style='display:none'>
                 <form id='form' method='post' action='<?php echo URLROOT ?>admin/bienvenue'>
                    

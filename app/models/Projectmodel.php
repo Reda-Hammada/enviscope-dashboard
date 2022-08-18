@@ -15,13 +15,7 @@
             $this->db->query('INSERT INTO projet (project) VALUES(:project)');
             $this->db->bind(':project', $project);
             $execute = $this->db->execute();
-            if($execute){
-
-                return true;
-            }else {
-
-                return false;
-            }
+           
         
             
 

@@ -33,6 +33,51 @@
 
         </div>
 
+        <!-- add competence form -->
+        <section class='w-9/12 mt-10 text-center'>
+            <div onclick=showForm() id='add_toggle' class=' rounded select-none	 w-3/4 ml-auto h-14 pt-3 font-bold cursor-pointer text-2xl		 flex justify-between pr-4 pl-4 bg-white'>
+                Ajouter Compétence
+                <i   id='arrow'  class='fas text-blue-900  add_rotate'>&#xf106;</i>
+
+            </div>
+            <div class="flex flex-col pt-8 pb-8  align-center  rounded w-3/4 bg-white ml-auto " id="form_container" style='display:none'>
+                <form id='form' method='post' action='<?php echo URLROOT ?>admin/competences'>
+                   
+                    <div class='pb-5'>
+
+                            <input  class='mb-5 text-inherit pl-3 h-10 mb-3 w-1/2  border-double border-2 rounded border-blue-900' type='text' name='title' placeholder='veuillez entrer le titre'><br>
+                            <span id='error' class=' mb-5 text-red-500 text-center'><?php if(isset($data['title_err'])):  echo $data['title_err'];  
+                                                                                          endif; ?></span><br>
+                            <textarea name='body' class=' text-inherit h-20 w-1/2 resize-none border-double border-2 rounded border-blue-900' placeholder='veuillez entrer le paragraphe' ></textarea><br>
+                            <span id='error'  class=' mb-5 text-red-500 text-center'><?php if(isset($data['body_err'])):  
+                            echo $data['body_err']; endif;  ?>
+                            </span>
+
+                    </div>
+
+                    
+                    <input class=' cursor-pointer w-24 bg-blue-900 h-8 rounded-md text-white font-bold' type='submit' name='add' value='ajouter'> 
+                </form>
+            </div>
+        </section>
+
+        <!-- Compétences  -->
+
+        <section class='flex flex-row bg-blue-900	justify-between'>
+
+        <?php if(isset($data['competence_added'])):
+                foreach($data['competence_added']  as $displayCompetences):   ?>
+
+            <div>
+                <h3><?php echo  $displayCompetences['title'] ?></h3>
+                <p><?php echo $displayCompetences['body'] ?></p>
+            <div>
+
+        <?php endforeach;
+              endif; ?>
+        
+        </section>
+      
     </main>
 
 

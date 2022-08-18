@@ -7,10 +7,10 @@ Class Admin extends Controller {
     public function __construct(){
 
         // load models into the controller once the controller is called 
+        $this->Competencemodel = $this->model('Competencemodel');
         $this->Referencemodel =  $this->model('Referencemodel');
         $this->Projectmodel = $this->model('Projectmodel');
-        $this->Bienvenuemodel = $this->model('Bienvenuemodel');
-        
+        $this->Bienvenuemodel = $this->model('Bienvenuemodel'); 
         // check if the admin is logged if not redirect him to the login page 
         if(!isloggedIn()){
 
@@ -46,11 +46,83 @@ Class Admin extends Controller {
 
     // competence view
     // competence starts
-    public function  competences(){
+    public function competences(){
 
-        $data = [];
+    
 
-        $this->view('admin/projet');
+
+        if(isset($_POST['add'])):
+
+                 // // load all competences into the view 
+                //  $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $displayCompetences = $this->Competencemodel->getAllCompetences();
+
+            $data = [
+
+                'title'=>trim($_POST['title']),
+                'body'=>trim($_POST['body']),
+                'body_err'=>"",
+                'title_err'=>"",
+                'competence_added'=>$displayCompetences,
+
+
+            ];
+
+
+
+
+
+            if(empty($data['title'])):
+
+                $data['title_err'] = 'veuillez entrer le titre';
+                
+            endif;
+
+            if(empty($data['body'])):
+
+                $data['body_err'] = "veuillez entrer le paragraphe";
+
+            endif;
+
+            if(empty($data['title_err']) && empty($data['body_err'])):
+
+                $this->Competencemodel->addCompetence($data['title'], $data['body']);
+                redirect('admin/competences');
+
+
+
+            else:
+
+            
+                // load errors into the view
+                $this->view('admin/competences', $data);
+
+
+            endif;
+
+
+        
+
+
+        else:
+
+            // // load all competences into the view 
+            $displayCompetences = $this->Competencemodel->getAllCompetences();
+
+            $data = [
+
+                'title'=>"",
+                'body'=>"",
+                'body_err'=>"",
+                'title_err'=>"",
+                'competence_added'=>$displayCompetences,
+
+            ];
+
+            $this->view('admin/competences', $data);
+
+        endif;
         
     }
     // competence ends
@@ -64,60 +136,62 @@ Class Admin extends Controller {
     //project view
     public function projet() {
 
-        // loads added projects from database
-        $displayProject = $this->Projectmodel->getAllProjects();
+        
 
-            if(isset($_POST['add'])){
+            if(isset($_POST['add'])):
+
 
                 $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                
+                // loads added projects from database
+                $displayProject = $this->Projectmodel->getAllProjects();
+        
+
      
                 $data = [
 
 
                     'id' =>"",
-                    'projet' =>$_POST['projet'],
-                    'projet_err'=>"",
+                    'projet' =>trim($_POST['projet']),
+                    'projet_err'=>'',
                     'project_added' => $displayProject,
 
                 
                 ];
 
 
+                     // validate inputs 
+
+                     if(empty($data['projet'])):
+
+                        $data['projet_err'] = "Veuillez entrer le projet";
+
+
+                    endif;
+
+
+                       //check if errors empty to insert the project into database 
         
-        // validate inputs 
-
-        if(empty($data['projet']) ){
-
-            $data['projet_err'] = 'Veuillez entrer le projet';
+                   if(empty($data['projet_err'])):
 
 
-
-         }
-
-
-         //check if errors empty to insert the project into database 
-   
-        if(empty($data['projet_err'])){
+                    $this->Projectmodel->insertProject($data['projet']); 
+                    redirect('admin/projet');
 
 
-            $this->addProject($data['projet']);
+                   else:                        
+                        // Load view with errors
+                        $this->view('admin/projet', $data);
 
 
-            
 
-            
-  
-        
+                   endif;
 
-        }else {
-            // load view with errors
-            $this->view('admin/projet', $data);
+               
+             
 
-
-           }
-
-            }else{
-
+            else:
         // load data into the view
         $displayProject = $this->Projectmodel->getAllProjects();
 
@@ -131,26 +205,15 @@ Class Admin extends Controller {
 
         ];
 
-       
-
-
         $this->view('admin/projet', $data);
 
-        
-    }
+        endif;
+    
 
 }
   
-    //  insert project 
 
 
-    public function addProject($project){
-        
-        $this->Projectmodel->insertProject($project); 
-        redirect('admin/projet');
-       
-
-    }
 
 
     // edit a project 
