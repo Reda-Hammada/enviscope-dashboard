@@ -54,9 +54,9 @@ Class Admin extends Controller {
         if(isset($_POST['add'])):
 
                  // // load all competences into the view 
-                //  $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                 $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-        $displayCompetences = $this->Competencemodel->getAllCompetences();
+                $displayCompetences = $this->Competencemodel->getAllCompetences();
 
             $data = [
 
@@ -113,7 +113,7 @@ Class Admin extends Controller {
             $data = [
 
                 'title'=>"",
-                'body'=>"",
+                'body'=>"", 
                 'body_err'=>"",
                 'title_err'=>"",
                 'competence_added'=>$displayCompetences,
@@ -124,6 +124,58 @@ Class Admin extends Controller {
 
         endif;
         
+    }
+    // delete a competence by id 
+
+    public function deleteCompetence($id){
+
+        $this->Competencemodel->deleteCompetence($id);
+        redirect('admin/competences');
+    }
+
+
+    //edit a competence 
+
+    public function editCompetence($id){
+
+        if(isset($_POST['editCompetence'])):
+
+            // load all competences to the view
+            $displayCompetences = $this->Competencemodel->getAllCompetences();
+
+            $data = [
+
+             
+                'body_edit'=>trim($_POST['body']),
+                "title_edit"=>trim($_POST['title']),
+                'competence_added'=>$displayCompetences,
+            ];
+
+            // method to update the  competence in the model
+            $this->Competencemodel->updateCompetence($id,$data['body_edit'], $data['title_edit']);
+
+            redirect('admin/competences');
+
+        else:
+            // load the competence to edit form
+            $competenceById = $this->Competencemodel->getCompeteneById($id);
+
+            
+            // load all competences to the view
+            $displayCompetences = $this->Competencemodel->getAllCompetences();
+
+            $data = [
+
+                'edit_body'=>$competenceById['body'],
+                'edit_title'=>$competenceById['title'],
+                'competence_added'=>$displayCompetences,
+
+            ];
+
+
+            $this->view('admin/editCompetence', $data);
+
+        endif;
     }
     // competence ends
 

@@ -41,7 +41,7 @@ const showForm = () => {
             arrow.style.transform='rotate(180deg)';
             arrow.style.animationDelay='0.25s';
             arrow.style.animationDuration=' 0.75s';
-            form.style.display = 'flex';        
+            form.style.display = 'flex';      
 
         }
 
@@ -49,7 +49,6 @@ const showForm = () => {
 
             arrow.style.transform='rotate(0deg)';
             form.style.display='none';
-
         }
     }
 
@@ -119,4 +118,6 @@ close.onclick = function (){
     }
 
     document.getElementById('edit_container').style.display='none';
-}
+};
+
+

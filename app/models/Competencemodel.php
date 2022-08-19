@@ -29,4 +29,34 @@ class Competencemodel {
         
         return $result;
     }
+
+    // get competence by id 
+    public function getCompeteneById($id){
+
+        $this->db->query('SELECT * FROM comepetences WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+        return $result = $this->db->single();
+        var_dump($result);
+    }
+    // delete a competence 
+
+    public function deleteCompetence($id){
+
+        $this->db->query('DELETE FROM comepetences WHERE id = :id');
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+    }
+
+    // edit a competence
+
+    public function updateCompetence($id, $body,$title){
+
+        $this->db->query("UPDATE `comepetences` set title = :title, body=:body WHERE id = :id");
+        $this->db->bind(':title', $title);
+        $this->db->bind(':body', $body);
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+
+    }
 }
