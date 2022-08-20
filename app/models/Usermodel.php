@@ -49,6 +49,19 @@ class Usermodel {
 
     }
 
+    public function fetchAdmin(){
+
+        $this->db->query('SELECT pass_word from admin');
+        return $result = $this->db->single();
+    }
+
+    public function changePassword($newpassword){
+
+        $this->db->query('UPDATE admin SET `pass_word` =:password ');
+        $this->db->bind(':password', $newpassword);
+        $this->db->execute();
+
+    }
  
  
 }

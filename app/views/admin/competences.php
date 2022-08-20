@@ -14,15 +14,18 @@
             <div class="w-9/12">
                 <img class="w-52 pl-2.5 pt-2.5" src="<?php echo URLROOT   ?>asset/images/logo.jpg" alt='logo'>
             </div>
-            <div class="w-3/12 pl-2.5 pt-2.5" ">
-                <i onclick=showSetting() id='icon_settings' class="fa fa-cog text-3xl cursor-pointer text-blue-900" aria-hidden="true"></i>
+            <i onclick=showSetting() id='icon_settings' class="fa fa-cog text-3xl cursor-pointer text-blue-900 mt-4" aria-hidden="true"></i>
 
-                    <div style='display:none'  id='settings'  class='block font-bold flex flex-col items-center w-20 bg-red-600	 absolute '>
-                        <div>
-                            <a href="<?php echo URLROOT ?>admin/settings">Settings</a>
-                        </div>
-                        <button class="w-24 bg-blue-900 h-8 rounded-md"><a class='text-white text-base' href= <?php echo URLROOT . 'user/logout' ?>>logout</a></button>
+            <div  id='settings'  style='display:none' class="select-none py-5 h-32 mr-3 drop-shadow-2xl ml-auto  w-52 pl-2.5  bg-white absolute rounded right-0 top-16" >
+
+                <div   class=' w-full ml-auto mr-auto block font-bold flex flex-col items-center w-20   '>
+                    <div class='text-blue-900'>
+                        <a href="<?php echo URLROOT ?>admin/settings">paramètres</a>
                     </div>
+                    <div class='pt-4'>                        
+                        <button class="w-36 bg-blue-900 h-8 rounded-md"><a class='text-white text-base' href= <?php echo URLROOT . 'user/logout' ?>>déconnexion</a></button>
+                    </div>
+                </div>
 
             </div>
         </nav>

@@ -37,7 +37,6 @@ class Competencemodel {
         $this->db->bind(':id', $id);
         $this->db->execute();
         return $result = $this->db->single();
-        var_dump($result);
     }
     // delete a competence 
 

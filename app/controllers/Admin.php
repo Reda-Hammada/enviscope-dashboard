@@ -11,6 +11,8 @@ Class Admin extends Controller {
         $this->Referencemodel =  $this->model('Referencemodel');
         $this->Projectmodel = $this->model('Projectmodel');
         $this->Bienvenuemodel = $this->model('Bienvenuemodel'); 
+        $this->Usermodel = $this->model('Usermodel');
+
         // check if the admin is logged if not redirect him to the login page 
         if(!isloggedIn()){
 
@@ -27,9 +29,10 @@ Class Admin extends Controller {
     public function dashboard(){
 
 
-        $data = [];
+        $data =[];
 
-        $this->view('admin/dashboard', $data);
+        $this->view('admin/dashboard');
+      
     }
 
 
@@ -37,9 +40,67 @@ Class Admin extends Controller {
     //setting starts
     public function settings(){
 
-        $data = [];
+        if(isset($_POST['change'])):
 
-        $this->view('admin/settings');
+            $data = [
+
+                'oldPassword'=>trim($_POST['oldpassword']),
+                'newPassword'=>trim($_POST['newpassword']),
+                'oldpassword_err'=>'',
+                'newpassword_err'=>'',
+                'doesntmatch'=>'',
+            ];
+
+
+            $password = $this->Usermodel->fetchAdmin();
+
+            // check if old password match the one in the database
+            if(!empty($data['oldPassword'])):
+                
+                if($data['oldPassword'] != $password):
+                    $data['doesntmatch'] = 'votre mot de passe est incorrect';
+                 endif;
+
+            endif;
+
+            if(empty($data['newPassword'])):
+
+                $data['newpassword_err'] ="entrez votre nouveau mot de passe"; 
+
+            endif;
+
+            if(empty($data['oldPassword'])):
+
+                $data['oldpassword_err'] ="entrez votre ancien mot de passe";
+
+            endif;
+
+            $password = $this->Usermodel->fetchAdmin();
+            // if they match change the password
+            if($password['pass_word'] == $data['oldPassword']):
+
+                $this->Usermodel->changePassword($data['newPassword']);
+                redirect('user/logout');
+
+            else:
+
+
+
+                //load views with errors 
+                $this->view('admin/settings', $data);
+
+            endif;
+    
+
+
+        else:
+
+            $data = [];
+            
+            $this->view('admin/settings', $data);
+
+        endif;
+      
     }
     // setting ends
 
