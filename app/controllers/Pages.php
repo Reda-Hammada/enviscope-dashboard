@@ -7,7 +7,7 @@
 
         public function index(){
 
-            $this->view('pages/index');
+            redirect('admin/dashboard');
 
         }  
 
