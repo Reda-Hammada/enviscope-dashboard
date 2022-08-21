@@ -1,7 +1,0 @@
-<IfModule mod_rewrite.c>
-
-  RewriteEngine on
-  RewriteRule ^$ enviscope-dashboard/ [L]
-  RewriteRule (.*) enviscope-dashboard/$1 [L]
-  
-</IfModule>

@@ -7,7 +7,7 @@
 
         public function index(){
 
-            // redirect('admin/dashboard');
+            redirect('admin/dashboard');
 
         }  
 
