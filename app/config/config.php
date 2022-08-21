@@ -19,7 +19,7 @@ define('APPROOT'
 //URL Root 
 
 define('URLROOT', 
-'http://localhost/enviscope-dashboard/');
+'https://enviscope.herokuapp.com/');
 
 //Site Name
 
