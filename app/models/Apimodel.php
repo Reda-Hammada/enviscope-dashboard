@@ -41,7 +41,7 @@
 
             $this->db->query('SELECT * FROM bienvenue');
 
-            $result = $this->db->single();
+            $result = $this->db->resultSet();
             
             return $result;
         }
