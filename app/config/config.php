@@ -3,13 +3,13 @@
 //DB Params 
 
 define('DB_HOST',
-'localhost');
+'eu-cdbr-west-03.cleardb.net');
 define('DB_USER',
-'root');
+'bb46d4fbfbe704');
 define('DB_PASS', 
-'');
+'3e66b167');
 define('DB_NAME', 
-'enviscope');
+'heroku_3e009f482180748');
 
 // App Root 
 

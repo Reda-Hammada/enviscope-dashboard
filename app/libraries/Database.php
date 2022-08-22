@@ -10,6 +10,10 @@
 
 */
 
+
+
+
+
 class Database {
 
     private $host = DB_HOST;
