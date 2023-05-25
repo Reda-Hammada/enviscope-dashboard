@@ -3,13 +3,13 @@
 //DB Params 
 
 define('DB_HOST',
-'eu-cdbr-west-03.cleardb.net');
+'https://databases-auth.000webhost.com/index.php');
 define('DB_USER',
-'bb46d4fbfbe704');
+'id20808118_adminenviscope');
 define('DB_PASS', 
-'3e66b167');
+'AdminEnviscope1#2');
 define('DB_NAME', 
-'heroku_3e009f482180748');
+'id20808118_enviscopedb');
 
 // App Root 
 
